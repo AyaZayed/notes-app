@@ -67,6 +67,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
+  min-height: 70vh;
 }
 
 .home .notes .note {
@@ -78,6 +79,7 @@
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   min-width: 32%;
+  max-height: 28vh;
 }
 
 .home .notes .new-note {
@@ -99,6 +101,10 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+}
+
+.home .notes .note .note-footer p {
+  color: var(--dark-grey);
 }
 
 .home .notes .note .note-footer button {

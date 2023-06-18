@@ -25,6 +25,16 @@ export default function App() {
     localStorage.setItem('notes-data', JSON.stringify(notes))
   }, [notes])
 
+  function updateNote(id, text) {
+    const updatedNotes = notes.map(note => {
+      if (note.id === id) {
+        note.text = text
+      }
+      return note
+    })
+    setNotes(updatedNotes)
+  }
+
   function addNote(text) {
     const newNote = {
       id: nanoid(),
@@ -41,21 +51,7 @@ export default function App() {
   }
 
   function searchNotes(text) {
-    if (text === '') {
-      setNotes(notes)
-      return
-    }
     const updatedNotes = notes.filter(note => note.text.toLowerCase().includes(text.toLowerCase()))
-    setNotes(updatedNotes)
-  }
-
-  function updateNote(id, text) {
-    const updatedNotes = notes.map(note => {
-      if (note.id === id) {
-        note.text = text
-      }
-      return note
-    })
     setNotes(updatedNotes)
   }
 
