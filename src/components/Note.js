@@ -3,15 +3,14 @@ import { useState } from 'react'
 
 export default function Note({ note, deleteNote, updateNote }) {
     const [isEditing, setIsEditing] = useState(false)
-
-
+    const [remaining, setRemaining] = useState(false)
 
     return (
         <div className='note'>
-            <textarea value={note.text} onChange={(e) => { updateNote(note.id, e.target.value); setIsEditing(true) }}>
+            <textarea rows={5} maxLength='200' value={note.text} onChange={(e) => { updateNote(note.id, e.target.value); setIsEditing(true); setRemaining(true) }}>
             </textarea>
             <div className='note-footer'>
-                <p>{note.date}</p>
+                <p className='info'>{isEditing && remaining ? `${200 - note.text.length} remaining` : `${note.date}`}</p>
                 {isEditing ? (
                     <button className='save' onClick={() => setIsEditing(false)}>Save</button>
                 ) :

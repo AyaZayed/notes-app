@@ -65,7 +65,7 @@ export default function App() {
 
   return (
     <div className='home' data-theme={theme}>
-      <div>
+      <div className='header'>
         <h1>Notes</h1>
         <button className='theme-btn'
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>

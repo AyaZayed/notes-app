@@ -5,8 +5,6 @@ export default function AddNote({ addNote }) {
     const [noteText, setNoteText] = useState('')
     const characterLimit = 200
 
-    console.log(noteText)
-
     function handleChange(e) {
         if (characterLimit - e.target.value.length >= 0) {
             setNoteText(e.target.value)
@@ -23,9 +21,9 @@ export default function AddNote({ addNote }) {
 
     return (
         <div className='note new-note'>
-            <textarea rows='8' cols='10' placeholder='Type to add a note...' value={noteText} onChange={handleChange}></textarea>
+            <textarea rows={5} maxLength='200' placeholder='Type to add a note...' value={noteText} onChange={handleChange}></textarea>
             <div className='note-footer'>
-                <small>{characterLimit - noteText.length} Remaining</small>
+                <p>{characterLimit - noteText.length} Remaining</p>
                 <button className='save' onClick={handleSave}>Save</button>
             </div>
         </div>
