@@ -5,7 +5,6 @@ import Note from './components/Note'
 import AddNote from './components/AddNote'
 
 export default function App() {
-  const [searchText, setSearchText] = useState('')
   const [theme, setTheme] = useState('light')
   const [notes, setNotes] = useState([
     {
@@ -16,21 +15,15 @@ export default function App() {
   ])
 
   useEffect(() => {
-    const savedNotes = JSON.parse(
-      localStorage.getItem('react-notes-app-data')
-    );
-
+    const savedNotes = JSON.parse(localStorage.getItem('notes-data'))
     if (savedNotes) {
-      setNotes(savedNotes);
+      setNotes(savedNotes)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    localStorage.setItem(
-      'react-notes-app-data',
-      JSON.stringify(notes)
-    );
-  }, [notes]);
+    localStorage.setItem('notes-data', JSON.stringify(notes))
+  }, [notes])
 
   function addNote(text) {
     const newNote = {
@@ -48,9 +41,12 @@ export default function App() {
   }
 
   function searchNotes(text) {
-    setSearchText(text)
-    const filteredNotes = notes.filter(note => note.text.toLowerCase().includes(text.toLowerCase()))
-    setNotes(filteredNotes)
+    if (text === '') {
+      setNotes(notes)
+      return
+    }
+    const updatedNotes = notes.filter(note => note.text.toLowerCase().includes(text.toLowerCase()))
+    setNotes(updatedNotes)
   }
 
   function updateNote(id, text) {
@@ -75,7 +71,7 @@ export default function App() {
         <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
           <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
         </svg>
-        <input type='text' value={searchText} placeholder='type to search...' onChange={e => searchNotes(e.target.value)} />
+        <input type='text' placeholder='type to search...' onChange={e => searchNotes(e.target.value)} />
       </div>
       <div className='notes'>
         {notes.map(note => (
